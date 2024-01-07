@@ -4,6 +4,7 @@ from rest_framework.generics import (
     RetrieveUpdateDestroyAPIView,
     GenericAPIView,
     CreateAPIView,
+    ListAPIView
 )
 from cars.models import (
     Car,
@@ -11,6 +12,7 @@ from cars.models import (
     Rent,
 )
 from cars.serializers import (
+    CarFullSerializer,
     CarSerializer,
     CategorySerializer,
     RentCreateSerializer,
@@ -19,16 +21,31 @@ from cars.serializers import (
 from rest_framework.response import Response
 from users.models import ExtendedUser
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from django.db import transaction
+from rest_framework.exceptions import APIException
 
 
-class CarListCreateView(ListCreateAPIView):
-    permission_classes = [IsAuthenticated]
+class CarByCategoryView(GenericAPIView):
+
+    def get(self, request, pk):
+        cars = Car.objects.filter(category=pk)
+        return Response(CarSerializer(cars, many=True).data)
+
+
+class CarCreateView(CreateAPIView):
+    permission_classes = [IsAuthenticated, IsAdminUser]
     queryset = Car.objects.all()
     serializer_class = CarSerializer
 
 
+class CarListView(ListAPIView):
+
+    queryset = Car.objects.filter(rent__car=None)
+    serializer_class = CarFullSerializer
+
+
 class CarSingleView(RetrieveUpdateDestroyAPIView):
-    permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser, IsAuthenticated]
     queryset = Car.objects.all()
     serializer_class = CarSerializer
 
@@ -49,8 +66,17 @@ class RentSingleView(RetrieveUpdateDestroyAPIView):
 
 
 class RentCreateView(CreateAPIView):
-    queryset = Rent.objects.all()
     serializer_class = RentCreateSerializer
+    queryset = Rent.objects.all()
+
+    def post(self, request):
+        user = ExtendedUser.objects.get(pk=request.data['client'])
+        with transaction.atomic():
+            user.balance -= request.data['cost']
+            if user.balance < 0:
+                raise APIException("У вас недостаточно средств")
+            user.save()
+            return super().post(request)
 
 
 class RentsListByUserView(GenericAPIView):

@@ -14,12 +14,19 @@ class CarSerializer(ModelSerializer):
         fields = '__all__'
 
 
+
 class CategorySerializer(ModelSerializer):
 
     class Meta:
         model = Category
         fields = '__all__'
 
+
+class CarFullSerializer(ModelSerializer):
+    category = CategorySerializer()
+    class Meta:
+        model = Car
+        fields = '__all__'
 
 class RentSerializer(ModelSerializer):
     car = CarSerializer()
@@ -36,4 +43,5 @@ class RentCreateSerializer(ModelSerializer):
         fields = [
             'client',
             'car',
+            'cost',
         ]

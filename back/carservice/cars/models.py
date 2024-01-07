@@ -38,3 +38,5 @@ class Rent(models.Model):
     end_date = models.DateTimeField(
         default=timezone.now()+datetime.timedelta(days=30)
         )
+    cost = models.FloatField(default=0.0)
+    is_active = models.BooleanField(default=True)

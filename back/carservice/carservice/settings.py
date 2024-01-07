@@ -24,27 +24,11 @@ SECRET_KEY = 'django-insecure-n$p_3dve0=#u29w=nnj9#-0wjx!6n*vcj(5p#10g6u=xnhxz!1
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = [
-'*'
-]
+ALLOWED_HOSTS = ['*']
 # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
 CORS_ALLOW_ALL_ORIGINS = True 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = [
-    'http://127.0.0.1:5173',
-] 
-# If this is used, then not need to use `CORS_ALLOW_ALL_ORIGINS = True`
 
-# CORS_ORIGIN_WHITELIST = (
-#     'http://localhost:5173',  # for localhost (REACT Default)
-#     'http://192.168.10.45:5173',  # for network
-#     )
-# CSRF_TRUSTED_ORIGINS = [
-#     'http://localhost:5173',  # for localhost (REACT Default)
-#     'http://192.168.0.50:5173',  # for network 
-#     'http://localhost:8080',  # for localhost (Developlemt)
-#     'http://192.168.0.50:8080',  # for network (Development)
-# ]
 CORS_ALLOW_HEADERS = default_headers
 CORS_ALLOW_METHODS = default_methods
 CORS_EXPOSE_HEADERS = (
@@ -74,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
