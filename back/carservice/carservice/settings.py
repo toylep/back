@@ -46,9 +46,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'users',
     'drf_spectacular',
     'cars',
-    'users',
     
 ]
 AUTH_USER_MODEL = "users.ExtendedUser"
