@@ -15,7 +15,7 @@ class Category(models.Model):
 class Car(models.Model):
     """Модель машины 
     """
-    picture = models.ImageField(upload_to='media')
+    picture = models.ImageField(upload_to='assets')
     model = models.CharField(max_length=50)
     mark = models.CharField(max_length=50)
     description = models.TextField()
