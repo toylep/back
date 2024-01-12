@@ -29,7 +29,7 @@ class CarByCategoryView(GenericAPIView):
 
     def get(self, request, pk):
         cars = Car.objects.filter(category=pk)
-        return Response(CarSerializer(cars, many=True).data)
+        return Response(CarFullSerializer(cars, many=True).data)
 
 
 class CarCreateView(CreateAPIView):

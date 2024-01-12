@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, ImageField
 from cars.models import (
     Car,
     Category,
@@ -14,7 +14,6 @@ class CarSerializer(ModelSerializer):
         fields = '__all__'
 
 
-
 class CategorySerializer(ModelSerializer):
 
     class Meta:
@@ -23,10 +22,13 @@ class CategorySerializer(ModelSerializer):
 
 
 class CarFullSerializer(ModelSerializer):
+    picture = ImageField(use_url=False)
     category = CategorySerializer()
+
     class Meta:
         model = Car
         fields = '__all__'
+
 
 class RentSerializer(ModelSerializer):
     car = CarSerializer()

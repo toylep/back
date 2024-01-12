@@ -11,8 +11,8 @@ from cars.views import (
 )
 
 urlpatterns = [
-    path("", CarCreateView.as_view(), name="car-list"),
-    path("list/", CarListView.as_view(), name="car-add"),
+    path("", CarCreateView.as_view(), name="car-add"),
+    path("list/", CarListView.as_view(), name="car-list"),
     path("<int:pk>", CarSingleView.as_view()),
     path("category/", CategoryListView.as_view()),
     path("rent/<int:pk>", RentSingleView.as_view()),

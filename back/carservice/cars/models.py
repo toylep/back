@@ -8,7 +8,6 @@ from users.models import ExtendedUser
 class Category(models.Model):
     """Категория авто
     """
-    
     name = models.CharField(max_length=50)
     price = models.FloatField()
 
@@ -16,7 +15,7 @@ class Category(models.Model):
 class Car(models.Model):
     """Модель машины 
     """
-    picture = models.TextField()
+    picture = models.ImageField(upload_to='media')
     model = models.CharField(max_length=50)
     mark = models.CharField(max_length=50)
     description = models.TextField()
