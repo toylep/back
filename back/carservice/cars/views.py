@@ -6,11 +6,13 @@ from rest_framework.generics import (
     CreateAPIView,
     ListAPIView
 )
+from rest_framework.pagination import PageNumberPagination
 from cars.models import (
     Car,
     Category,
     Rent,
 )
+from django_filters import rest_framework as filters
 from cars.serializers import (
     CarFullSerializer,
     CarSerializer,
@@ -25,11 +27,10 @@ from django.db import transaction
 from rest_framework.exceptions import APIException
 
 
-class CarByCategoryView(GenericAPIView):
+class CarPagination(PageNumberPagination):
 
-    def get(self, request, pk):
-        cars = Car.objects.filter(category=pk)
-        return Response(CarFullSerializer(cars, many=True).data)
+    page_size = 7
+    page_query_param = 'page'
 
 
 class CarCreateView(CreateAPIView):
@@ -39,7 +40,9 @@ class CarCreateView(CreateAPIView):
 
 
 class CarListView(ListAPIView):
-
+    filter_backends = [filters.DjangoFilterBackend]
+    filterset_fields = ['category']
+    pagination_class = CarPagination
     queryset = Car.objects.filter(rent__car=None)
     serializer_class = CarFullSerializer
 
@@ -51,6 +54,11 @@ class CarSingleView(RetrieveUpdateDestroyAPIView):
 
 
 class CategoryListView(ListCreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class CategorySingleView(RetrieveUpdateDestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 

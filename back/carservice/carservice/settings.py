@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'users',
     'drf_spectacular',
     'cars',
+    'django_filters',
     
 ]
 AUTH_USER_MODEL = "users.ExtendedUser"
