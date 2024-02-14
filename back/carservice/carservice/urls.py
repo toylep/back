@@ -21,7 +21,7 @@ from drf_spectacular.views import (
     SpectacularRedocView,
     SpectacularSwaggerView,
 )
-
+from cars.views import PictureExport
 urlpatterns = [
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     # Optional UI:
@@ -35,6 +35,7 @@ urlpatterns = [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
+    path('assets/<str:filename>', PictureExport.as_view()),
     path("api/auth/dj", include("rest_framework.urls")),
     path("api/cars/", include("cars.urls")),
     path("api/users/", include("users.urls")),

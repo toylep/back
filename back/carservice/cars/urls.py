@@ -8,6 +8,7 @@ from cars.views import (
     RentsListByUserView,
     CarListView,
     CategorySingleView,
+    PictureExport
 )
 
 urlpatterns = [

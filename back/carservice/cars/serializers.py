@@ -22,7 +22,7 @@ class CategorySerializer(ModelSerializer):
 
 
 class CarFullSerializer(ModelSerializer):
-    picture = ImageField(use_url=False)
+    picture = ImageField(use_url=True)
     category = CategorySerializer()
 
     class Meta:

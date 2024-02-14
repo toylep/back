@@ -25,7 +25,7 @@ from users.models import ExtendedUser
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from django.db import transaction
 from rest_framework.exceptions import APIException
-
+from django.http import FileResponse
 
 class CarPagination(PageNumberPagination):
 
@@ -93,3 +93,10 @@ class RentsListByUserView(GenericAPIView):
         rents = Rent.objects.filter(client=user)
         serializer = RentSerializer(rents, many=True)
         return Response(serializer.data)
+
+
+class PictureExport(GenericAPIView):
+    
+    def get(self, request, filename):
+        img = open(f'assets/{filename}', 'rb')
+        return FileResponse(img)
