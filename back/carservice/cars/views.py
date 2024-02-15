@@ -27,6 +27,7 @@ from django.db import transaction
 from rest_framework.exceptions import APIException
 from django.http import FileResponse
 
+
 class CarPagination(PageNumberPagination):
 
     page_size = 7
@@ -43,7 +44,7 @@ class CarListView(ListAPIView):
     filter_backends = [filters.DjangoFilterBackend]
     filterset_fields = ['category']
     pagination_class = CarPagination
-    queryset = Car.objects.filter(rent__car=None)
+    queryset = Car.objects.filter(rent__car=None).order_by('id')
     serializer_class = CarFullSerializer
 
 
