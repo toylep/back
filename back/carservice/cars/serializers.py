@@ -46,4 +46,5 @@ class RentCreateSerializer(ModelSerializer):
             'client',
             'car',
             'cost',
+            'end_date',
         ]
