@@ -55,7 +55,7 @@ class CarSingleView(RetrieveUpdateDestroyAPIView):
 
 
 class CategoryListView(ListCreateAPIView):
-    queryset = Category.objects.all()
+    queryset = Category.objects.all().order_by('id')
     serializer_class = CategorySerializer
 
 
