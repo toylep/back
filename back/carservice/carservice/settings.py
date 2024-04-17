@@ -26,11 +26,15 @@ SECRET_KEY = 'django-insecure-n$p_3dve0=#u29w=nnj9#-0wjx!6n*vcj(5p#10g6u=xnhxz!1
 DEBUG = True
 ALLOWED_HOSTS = ['*']
 # If this is used then `CORS_ALLOWED_ORIGINS` will not have any effect
-CORS_ALLOW_ALL_ORIGINS = True 
+CORS_ALLOW_ALL_ORIGINS = [
+    "http://94.241.141.136/",
+    "http://localhost:8000",
+] 
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = default_headers
 CORS_ALLOW_METHODS = default_methods
+
 CORS_EXPOSE_HEADERS = (
     'Access-Control-Allow-Origin: *',
     'Access-Control-Allow-Methods: *'
@@ -50,7 +54,6 @@ INSTALLED_APPS = [
     'drf_spectacular',
     'cars',
     'django_filters',
-    
 ]
 AUTH_USER_MODEL = "users.ExtendedUser"
 
@@ -154,3 +157,4 @@ REST_FRAMEWORK = {
     # YOUR SETTINGS
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
+CORS_ORIGIN_ALLOW_ALL = True
